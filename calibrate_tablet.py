@@ -14,6 +14,8 @@ from pyglet.window import key
 
 import pandas as pd
 
+import time
+
 
 def calibrateTablet(screen=0, viewScale=None):
 
@@ -58,16 +60,69 @@ def calibrateTablet(screen=0, viewScale=None):
     #                             backendConf=None, 
     #                             infoMsg=None)
 
-    win = visual.Window(
-                            color=(0, 0, 0), 
-                            fullscr=True, 
-                            # monitor=mon, 
-                            units='pix', 
-                            screen=screen, 
-                            viewScale=viewScale
-                        )
+    # win = visual.Window(
+    #                         color=(0, 0, 0), 
+    #                         fullscr=True, 
+    #                         # monitor=mon, 
+    #                         units='pix', 
+    #                         screen=screen, 
+    #                         viewScale=viewScale
+    #                     )
 
-    myMouse = event.Mouse(visible=False, win=win)
+    myMonitor = monitors.Monitor(name='temp',
+                                 distance=100,
+                                 width=43.3)
+    myMonitor.setSizePix([1680,1050])
+
+    win = visual.Window( size=[1680,1050], 
+                                fullscr=True, 
+                                units='cm', 
+                                waitBlanking=False, 
+                                viewScale=[1,-1], 
+                                color=[-1,-1,-1], 
+                                screen=1, 
+                                monitor=myMonitor)
+
+    # don't need this:
+    xPPC = 1680/43.3
+    yPPC = 1050/27.1
+
+
+    # myMouse = event.Mouse(visible=False, win=win)
+
+
+
+        # set up 'mouse' object to track reaches:
+    class myMouse:
+
+        # TABLET:
+        # "size_px"    : [1680, 1050],
+        # "size_cm"    : [31.1, 21.6],
+        # "mapping"    : 'relative',     <-   this is not true right now
+
+        # MONITOR:
+        #   "size_px"         : [1680, 1050], 
+        #   "size_cm"         : [43.3, 27.1],
+        #   "viewscale"       : [1,-1],
+
+        def __init__(self, monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6]):
+            # we use a psychopy mouse object
+            self.psyMouse = event.Mouse(visible = False, newPos = None, win = cfg['win'])
+            self.xfactor = 43.3/31.1
+            self.yfactor = 27.1/21.6
+
+            print([self.xfactor, self.yfactor])
+
+        def getPos(self):
+            # but in addition to the position, we also return the time the position was asked for
+            [X,Y] = self.psyMouse.getPos()
+            st = time.time()
+            X = X / self.xfactor # scale to centimeters ?
+            Y = Y / self.yfactor # scale to centimeters ?
+
+            return [X,Y,st]
+
+    scaledMouse = myMouse(monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6])
 
     cursor = visual.Circle( win, 
                             radius=5, 
@@ -92,9 +147,10 @@ def calibrateTablet(screen=0, viewScale=None):
         cursor.draw()
 
         if recording:
-            data['x'].append(myMouse.getPos()[0])
-            data['y'].append(myMouse.getPos()[1])
-            data['t'].append(core.getTime())    
+            pos = scaledMouse.getPos()
+            data['x'].append(pos[0])
+            data['y'].append(pos[1])
+            data['t'].append(pos[2])
 
         win.flip()
         
