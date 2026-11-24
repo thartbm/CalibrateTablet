@@ -142,15 +142,16 @@ def calibrateTablet(screen=0, viewScale=None):
         # Draw a fixation cross
         
         instructions.draw()
-
-        cursor.pos = scaledMouse.getPos()
+        
+        mousepos = scaledMouse.getPos()
+        cursor.pos = [mousepos[0], mousepos[1]]
         cursor.draw()
 
         if recording:
-            pos = scaledMouse.getPos()
-            data['x'].append(pos[0])
-            data['y'].append(pos[1])
-            data['t'].append(pos[2])
+            # pos = scaledMouse.getPos()
+            data['x'].append(mousepos[0])
+            data['y'].append(mousepos[1])
+            data['t'].append(mousepos[2])
 
         win.flip()
         
