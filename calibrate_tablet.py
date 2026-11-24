@@ -132,7 +132,7 @@ def calibrateTablet(screen=0, viewScale=None):
                             lineWidth=2,
                             pos=(0, 0))
 
-    instructions = visual.TextStim(win, text="SPACE: toggle recording\n(blue=off; red=on)\n\nQ: quit.", pos=(0, 0), color='white', height=1)
+    instructions = visual.TextStim(win, text="SPACE: toggle recording\n(blue=off; red=on)\n\nQ: quit.", pos=(0, 0), color='white', height=1, flipVert=True)
 
 
     calibrating = True
