@@ -80,7 +80,7 @@ def calibrateTablet(screen=0, viewScale=None):
                                 waitBlanking=False, 
                                 viewScale=[1,-1], 
                                 color=[-1,-1,-1], 
-                                screen=1, 
+                                screen=2, 
                                 monitor=myMonitor)
 
     # don't need this:
@@ -125,14 +125,14 @@ def calibrateTablet(screen=0, viewScale=None):
     scaledMouse = myMouse(win, monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6])
 
     cursor = visual.Circle( win, 
-                            radius=5, 
+                            radius=0.5, 
                             edges=96, 
                             fillColor=None, 
                             lineColor='blue', 
                             lineWidth=2,
                             pos=(0, 0))
 
-    instructions = visual.TextStim(win, text="SPACE: toggle recording\n(blue=off; red=on)\n\nQ: quit.", pos=(0, 0), color='white', height=30)
+    instructions = visual.TextStim(win, text="SPACE: toggle recording\n(blue=off; red=on)\n\nQ: quit.", pos=(0, 0), color='white', height=1)
 
 
     calibrating = True
