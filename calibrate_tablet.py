@@ -144,7 +144,9 @@ def calibrateTablet(screen=0, viewScale=None):
         instructions.draw()
         
         mousepos = scaledMouse.getPos()
-        cursor.pos = [mousepos[0], mousepos[1]]
+        print(mousepos)
+        cursorpos = [mousepos[0], mousepos[1]]
+        cursor.pos = cursorpos
         cursor.draw()
 
         if recording:
