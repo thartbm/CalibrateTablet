@@ -80,7 +80,7 @@ def calibrateTablet(screen=0, viewScale=None):
                                 waitBlanking=False, 
                                 viewScale=[1,-1], 
                                 color=[-1,-1,-1], 
-                                screen=2, 
+                                screen=1, 
                                 monitor=myMonitor)
 
     # don't need this:
