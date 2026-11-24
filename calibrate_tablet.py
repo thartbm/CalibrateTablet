@@ -113,7 +113,7 @@ def calibrateTablet(screen=0, viewScale=None):
 
             print([self.xfactor, self.yfactor])
 
-        def getPos(self):
+        def getPos():
             # but in addition to the position, we also return the time the position was asked for
             [X,Y] = self.psyMouse.getPos()
             st = time.time()
