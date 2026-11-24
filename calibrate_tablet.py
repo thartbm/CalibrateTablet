@@ -1,5 +1,5 @@
 
-from psychopy import core, visual, gui, data, event
+from psychopy import core, visual, gui, data, event, monitors
 # from psychopy.tools.coordinatetools import pol2cart, cart2pol
 # from psychopy.tools.mathtools import distance
 # import numpy as np
