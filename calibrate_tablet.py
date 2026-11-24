@@ -78,7 +78,7 @@ def calibrateTablet(screen=0, viewScale=None):
                                 fullscr=True, 
                                 units='cm', 
                                 waitBlanking=False, 
-                                viewScale=[1,1], 
+                                viewScale=[1,-1], 
                                 color=[-1,-1,-1], 
                                 screen=2, 
                                 monitor=myMonitor)
