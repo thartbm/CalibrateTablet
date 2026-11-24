@@ -105,9 +105,9 @@ def calibrateTablet(screen=0, viewScale=None):
         #   "size_cm"         : [43.3, 27.1],
         #   "viewscale"       : [1,-1],
 
-        def __init__(self, monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6]):
+        def __init__(self, win, monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6]):
             # we use a psychopy mouse object
-            self.psyMouse = event.Mouse(visible = False, newPos = None, win = cfg['win'])
+            self.psyMouse = event.Mouse(visible = False, newPos = None, win = win)
             self.xfactor = 43.3/31.1
             self.yfactor = 27.1/21.6
 
@@ -122,7 +122,7 @@ def calibrateTablet(screen=0, viewScale=None):
 
             return [X,Y,st]
 
-    scaledMouse = myMouse(monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6])
+    scaledMouse = myMouse(win, monitor_size=[43.3, 27.1], tablet_size=[31.1, 21.6])
 
     cursor = visual.Circle( win, 
                             radius=5, 
